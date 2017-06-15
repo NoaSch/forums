@@ -54,6 +54,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Discussion.cs" />
+    <Compile Include="Logic\Message.cs" />
+    <Compile Include="Logic\SubForum.cs" />
+    <Compile Include="View\Forum.xaml.cs">
+      <DependentUpon>Forum.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubForum.xaml.cs">
+      <DependentUpon>SubForum.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\CreateUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -68,6 +77,8 @@
     </Compile>
     <Compile Include="Data\myData.cs" />
     <Compile Include="Logic\BusLogic.cs" />
+    <Compile Include="Logic\Forum.cs" />
+    <Compile Include="Logic\Member.cs" />
     <Compile Include="View\CreateUser.xaml.cs">
       <DependentUpon>CreateUser.xaml</DependentUpon>
     </Compile>
@@ -75,6 +86,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Forum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubForum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
