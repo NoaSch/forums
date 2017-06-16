@@ -1,0 +1,25 @@
+﻿<Window x:Class="forums.View.newSubForumWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:forums.View"
+        mc:Ignorable="d"
+        Title="newSubForumWin" Height="300" Width="300">
+    <Grid Height="271" Margin="0,0,0.333,-0.333" VerticalAlignment="Top">
+        <StackPanel HorizontalAlignment="Left" Margin="68,47,0,0" VerticalAlignment="Top" Width="177" Orientation="Horizontal" Height="37">
+            <Label Content="name:"/>
+            <TextBox x:Name="newName" TextWrapping="Wrap" Text="" Width="118" Height="37" VerticalAlignment="Top"/>
+        </StackPanel>
+        <ListView x:Name="members" HorizontalAlignment="Left" Height="100" Margin="68,129,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="ListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="choose moderators" Margin="68,89,98.333,0" VerticalAlignment="Top" Height="35"/>
+        <Button Content="Create New SubForum" HorizontalAlignment="Left" Margin="68,240,0,0" Width="127" Height="21" VerticalAlignment="Top" Click="Button_Click"/>
+
+    </Grid>
+</Window>

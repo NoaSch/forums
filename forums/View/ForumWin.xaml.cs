@@ -22,6 +22,7 @@ namespace forums.View
     {
         BusLogic busLogic;
         string forumSubject;
+        string username;
         public ForumWin(string forumSubject,BusLogic busLogic)
         {
             InitializeComponent();
@@ -37,7 +38,12 @@ namespace forums.View
             lw.ShowDialog();
             if (lw.conf == true)
             {
-                userLbl.Content = lw.usr;
+                username = lw.usr;
+                userLbl.Content = username;
+                if(busLogic.ForumsSys.Forums[forumSubject].Managers.ContainsKey(username))
+                {
+                    newSubBtn.Visibility = Visibility.Visible;
+                }
 
             }
         }
@@ -46,7 +52,13 @@ namespace forums.View
         {
             RegisterWin rw = new RegisterWin(busLogic, forumSubject);
             rw.ShowDialog();
+            
+        }
 
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            newSubForumWin nsb = new newSubForumWin(busLogic, forumSubject);
+            nsb.ShowDialog();
         }
     }
 }

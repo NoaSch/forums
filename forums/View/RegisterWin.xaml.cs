@@ -48,7 +48,7 @@ namespace forums.View
             {
 
                 //check if the mail exists and the password correct
-                if (busLogic.ForumsSys.Forums[forumName].Members.ContainsKey(usrText.Text))
+                if (!(busLogic.ForumsSys.Forums[forumName].isUserNameFree(usrText.Text)))
                 {
                     System.Windows.MessageBox.Show("UserName Already Exist", "Error");
 

@@ -66,6 +66,9 @@
     <Compile Include="View\LoginWin.xaml.cs">
       <DependentUpon>LoginWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\newSubForumWin.xaml.cs">
+      <DependentUpon>newSubForumWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RegisterWin.xaml.cs">
       <DependentUpon>RegisterWin.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\ForumWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\newSubForumWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

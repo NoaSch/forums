@@ -69,6 +69,44 @@ namespace forums.Data
             return ans;
         }
 
+        internal bool addSubForun(string id,string forumSubject, string newSubName)
+        {
+
+            conn = new OleDbConnection();
+            //conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Database.mdb";
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            cmd = new OleDbCommand();
+            cmd.CommandText = "INSERT into subForums ([subForumId],[subForumSubject],[forumSubject]) values(@subID,@subSubject, @forumSubject)";
+            cmd.Connection = conn;
+
+            conn.Open();
+            if (conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add("@subID", OleDbType.VarChar).Value = id;
+                cmd.Parameters.Add("@subSubject", OleDbType.VarChar).Value = newSubName;
+                cmd.Parameters.Add("@forumSubject", OleDbType.VarChar).Value = forumSubject;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+
+                }
+                catch (OleDbException ex)
+                {
+                    conn.Close();
+                    Console.WriteLine(ex.ToString());
+                    return false;
+
+                }
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
         internal bool addMember(string forumName, string username, string password)
         {
            
@@ -76,7 +114,7 @@ namespace forums.Data
              //conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Database.mdb";
              conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source="+ dbPath +";";
              cmd = new OleDbCommand();
-             cmd.CommandText = "INSERT into ForumsUsers (forumSubject, username, password, status) values(@forum, @username,@pass,@status)";
+             cmd.CommandText = "INSERT into ForumsUsers ([forumSubject], [username], [password], [status],[isManager]) values(@forum, @username,@pass,@status,@isManager)";
              cmd.Connection = conn;
 
              conn.Open();
@@ -86,7 +124,7 @@ namespace forums.Data
                     cmd.Parameters.Add("@username", OleDbType.VarChar).Value = username;
                  cmd.Parameters.Add("@Pass", OleDbType.VarChar).Value = password;
                  cmd.Parameters.Add("@status", OleDbType.VarChar).Value = "active";
-                 //cmd.Parameters.Add("@isManager", OleDbType.Boolean).Value = false;
+                 cmd.Parameters.Add("@isManager", OleDbType.Boolean).Value = false;
                  try
                  {
                      cmd.ExecuteNonQuery();
@@ -104,7 +142,8 @@ namespace forums.Data
              }
              else
              {
-                 return false;
+                conn.Close();
+                return false;
              }
          }
          
@@ -141,7 +180,7 @@ namespace forums.Data
              conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
              conn.Open();
              OleDbDataReader reader = null;
-             cmd = new OleDbCommand("SELECT username from subForumsModerators WHERE  subForumSubject ='" + subForumID.Trim() + "'", conn);
+             cmd = new OleDbCommand("SELECT username from subForumsModerators WHERE  subForumID ='" + subForumID.Trim() + "'", conn);
 
              reader = cmd.ExecuteReader();
              if (reader.HasRows)
@@ -209,8 +248,43 @@ namespace forums.Data
              return ans;
          }
 
+        internal bool addModerator(string id, string name)
+        {
+            conn = new OleDbConnection();
+            //conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Database.mdb";
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            cmd = new OleDbCommand();
+            cmd.CommandText = "INSERT into subForumsModerators ([subForumId],[username]) values(@subId, @username)";
+            cmd.Connection = conn;
 
-         public Dictionary<string,string> getSubForumsOfForum(string forumSubject)
+            conn.Open();
+            if (conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add("@subId", OleDbType.VarChar).Value = id;
+                cmd.Parameters.Add("@username", OleDbType.VarChar).Value = name;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+
+                }
+                catch (OleDbException ex)
+                {
+                    conn.Close();
+                    Console.WriteLine(ex.ToString());
+                    return false;
+
+                }
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+        public Dictionary<string,string> getSubForumsOfForum(string forumSubject)
          {
              Dictionary<string,string> ans = new Dictionary<string,string>();
              conn = new OleDbConnection();
@@ -224,8 +298,8 @@ namespace forums.Data
              {
                  foreach (DbDataRecord s in reader)
                  {
-                     string subId = s.GetString(0);
-                     string subSubject = s.GetString(1);               
+                    string subId = s.GetString(0);
+                    string subSubject = s.GetString(1);               
                      ans.Add(subId, subSubject);
                  }
                  conn.Close();

@@ -26,6 +26,7 @@
             <Label Content="Hello " Height="22" Margin="0,0,0,0" HorizontalAlignment="Left" Width="40"/>
             <Label x:Name="userLbl" Content="Guest" Margin="0,2" HorizontalAlignment="Left" Width="100" FontWeight="Bold"/>
         </StackPanel>
+        <Button x:Name="newSubBtn" Content="Add Sub Forum" HorizontalAlignment="Left" Margin="39,241,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_2" Visibility="Collapsed"/>
 
     </Grid>
 </Window>

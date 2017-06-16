@@ -8,15 +8,19 @@ namespace forums.Logic
 {
     public class SubForum:BusLogic
     {
+        private string subId;
         private string subject;
         Dictionary<string, Moderator> moderators;
         Dictionary<string, Discussion> discussions;
         Forum containingForum;
+        private string newSubName;
+
         /*private string key;
-        private string value;*/
+private string value;*/
 
         public SubForum(Forum parentForum,string subId, string subSubject, bool init): base(false)
         {
+            this.subId = subId;
             containingForum = parentForum;
             subject = subSubject;
             moderators = new Dictionary<string, Moderator>();
@@ -31,6 +35,12 @@ namespace forums.Logic
                 //get allDiscussions
                 getDiscussions();
             }
+        }
+
+        public SubForum(string id,string newSubName) : base(false)
+        {
+            this.subId = id;
+            this.newSubName = newSubName;
         }
 
         private void getDiscussions()
@@ -59,6 +69,16 @@ namespace forums.Logic
             set { subject = value; }
         }
 
+        public bool addModerator(string name)
+        {
+            if (db.addModerator(subId, name))
+            {
+                Moderator m = new Moderator(containingForum.Members[name]);
+                moderators.Add(name, m);
+                return true;
+            }
+            return false;
+        }
 
 
 

@@ -46,7 +46,7 @@ namespace forums
             if (selectedForum != "")
             {
                 ForumWin fw = new ForumWin(selectedForum, model);
-                fw.Show();
+                fw.ShowDialog();
             }
             /*if(model.testFunc())
    System.Windows.MessageBox.Show("true");
