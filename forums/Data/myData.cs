@@ -69,7 +69,7 @@ namespace forums.Data
             return ans;
         }
 
-        internal bool addSubForun(string id,string forumSubject, string newSubName)
+        internal bool addSubForum(string id,string forumSubject, string newSubName)
         {
 
             conn = new OleDbConnection();

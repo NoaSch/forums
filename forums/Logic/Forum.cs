@@ -65,7 +65,7 @@ namespace forums.Logic
         {
             string newId = (subForums.Count+1).ToString();
 
-            if (db.addSubForun(newId,subject, newSubName))
+            if (db.addSubForum(newId,subject, newSubName))
             {
                 subForums.Add(newSubName, new SubForum(this, newId, newSubName,false));
                 return true;
