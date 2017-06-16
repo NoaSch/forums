@@ -55,15 +55,28 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Logic\Discussion.cs" />
+    <Compile Include="Logic\Manager.cs" />
     <Compile Include="Logic\Message.cs" />
+    <Compile Include="Logic\Moderator.cs" />
     <Compile Include="Logic\SubForum.cs" />
-    <Compile Include="View\Forum.xaml.cs">
-      <DependentUpon>Forum.xaml</DependentUpon>
+    <Compile Include="Logic\System.cs" />
+    <Compile Include="View\ForumWin.xaml.cs">
+      <DependentUpon>ForumWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginWin.xaml.cs">
+      <DependentUpon>LoginWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegisterWin.xaml.cs">
+      <DependentUpon>RegisterWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SubForum.xaml.cs">
       <DependentUpon>SubForum.xaml</DependentUpon>
     </Compile>
     <Page Include="View\CreateUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -86,7 +99,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\Forum.xaml">
+    <Page Include="View\ForumWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegisterWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

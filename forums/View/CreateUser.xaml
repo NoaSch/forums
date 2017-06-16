@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="CreateUser" Height="300" Width="300">
     <Grid>
-        <Grid.Background>
+      <!--  <Grid.Background>
             <ImageBrush ImageSource="pack://application:,,,/pics/useR_add.png" Stretch="UniformToFill" Opacity="0.3" AlignmentY="Top"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="145*"/>
             <RowDefinition Height="126*"/>

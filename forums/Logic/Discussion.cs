@@ -9,6 +9,12 @@ namespace forums.Logic
   public  class Discussion
     {
 
-        Dictionary<string, Message> Discussions;
+        Dictionary<string, Message> messages;
+        private string subject;
+
+        public Discussion(string subject)
+        {
+            this.subject = subject;
+        }
     }
 }

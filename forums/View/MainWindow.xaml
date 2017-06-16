@@ -45,6 +45,14 @@
             <Button x:Name="PrefernecesBtn" Content="Preferneces" Margin="0,15,0.333,0" Click="PrefernecesBtn_Click_1" FontWeight="Bold" />
         </StackPanel>
         <Image x:Name="image1" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="120" Source="pics/partners.png" />-->
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="172.667,10.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Go To Forum" Grid.Column="1" HorizontalAlignment="Left" Margin="172.667,10.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <ListView x:Name="forums" Grid.Column="1" HorizontalAlignment="Left" Height="167" Margin="46.667,85,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Forums" Grid.Column="1" HorizontalAlignment="Left" Margin="46.667,43,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
     </Grid>
 </Window>

@@ -7,21 +7,81 @@ using System.Threading.Tasks;
 
 namespace forums.Logic
 {
-    public class Forum
+    public class Forum: BusLogic
     {
-
-
+        Dictionary<string, SubForum> subForums;
+        Dictionary<string, Manager> menagers;
+        Dictionary<string, Member> members;
         private string subject;
-        private string forumId; 
+
+       
+        
 
 
-        public Forum()
+        public Forum(string subject): base(false)
         {
-            //LoadMembers(); 
+           
+            this.subject = subject;
+            subForums = new Dictionary<string, SubForum>();
+            members = new Dictionary<string, Member>();
+            menagers = new Dictionary<string, Manager>();
+
+            //add members
+            getExistingMembers();
 
 
+            //add menagers
+            getForumMensgers();
+
+
+            //add subForums
+            getExistingSubForums();
+        }
+
+        private void getForumMensgers()
+        {
+            List<string> names = db.getMenagers(subject);
+            foreach (string name in names)
+            {
+                menagers.Add(name,new Manager(members[name]));
+            }
+        }
+
+        private void getExistingSubForums()
+        {
+           
+            Dictionary<string, string> subFList = db.getSubForumsOfForum(subject);
+            foreach (KeyValuePair<string,string> pair in subFList)
+            {
+                subForums.Add(pair.Key,new SubForum(this,pair.Key,pair.Value,true));
+                Console.WriteLine("done");
+            }
+
+            ///add moderators to subforums 
+            ///getSubForumsOfForum
+        }
+
+        internal bool addMember(string username, string password)
+        {
+            if (db.addMember(subject, username, password))
+            {
+                members.Add(username, new Member(username, password));
+                return true;
+            }
+            return false;
 
         }
+
+        private void getExistingMembers()
+        {
+            Dictionary<string, Tuple<string, string>> membersList = db.getMembersOfForum(subject);
+            foreach (string key in membersList.Keys)
+            {
+                members.Add(key, new Member(key, membersList[key].Item1));
+                Console.WriteLine("done");
+            }
+        }
+
         public string Subject
         {
             get { return subject; }
@@ -29,13 +89,25 @@ namespace forums.Logic
         }
 
 
-        public string ForumId
+        public string ForumSubject
         {
-            get { return forumId; }
-            set { forumId = value; }
+            get { return subject; }
+            set { subject = value; }
         }
 
-        Dictionary<string, SubForum> SubForums;
+        public Dictionary<string, Member> Members
+        {
+            get { return members; }
+            
+        }
+
+        public Dictionary<string, SubForum> SubForums
+        {
+            get { return subForums; }
+
+        }
+
+
 
 
         /*

@@ -20,11 +20,11 @@ namespace forums.Logic
         Status status; 
 
 
-        public Member()
+        public Member(string name,string pass)
         {
-
-
-
+            this.name = name;
+            this.password = pass;
+            this.status = Status.active;
         }
 
 
@@ -32,6 +32,12 @@ namespace forums.Logic
         {
             get { return name; }
             set { name = value; }
+        }
+
+        public string Password
+        {
+            get { return password; }
+           
         }
     }
 }

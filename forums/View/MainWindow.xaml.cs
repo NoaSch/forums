@@ -1,4 +1,5 @@
 ﻿using forums.Logic;
+using forums.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,18 +23,35 @@ namespace forums
     public partial class MainWindow : Window
     {
         BusLogic model;
+     
         public MainWindow()
         {
             InitializeComponent();
-            model = new BusLogic();
+            model = new BusLogic(true);
+
+            forums.ItemsSource = model.ForumsSys.Forums.Keys;
+            
+        }
+
+        private string GetSelectedValue()
+        {
+            if (forums.SelectedValue == null)
+                return "";
+            return forums.SelectedValue.ToString();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(model.testFunc())
-                System.Windows.MessageBox.Show("true");
-            else
-                System.Windows.MessageBox.Show("false");
+            string selectedForum = GetSelectedValue();
+            if (selectedForum != "")
+            {
+                ForumWin fw = new ForumWin(selectedForum, model);
+                fw.Show();
+            }
+            /*if(model.testFunc())
+   System.Windows.MessageBox.Show("true");
+else
+   System.Windows.MessageBox.Show("false");*/
         }
     }
 }

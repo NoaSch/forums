@@ -11,22 +11,25 @@ namespace forums.Logic
         //class for the business logic layer
         public class BusLogic
         {
+           System system;
+           protected myData db;
 
-            myData data;
-
-            public BusLogic()
+            public BusLogic(bool init)
             {
-                data = new myData();
-            }
-
-
-        public bool testFunc()
-        {
-            return data.checkIfUserExist("noaschsFDF4@gmail.com");
-                
+            db = new myData();
+            if(init )
+                system = new System();
+            
         }
 
 
+        public Dictionary<string,Tuple<string,string>> testFunc()
+        {
+           // return data.checkIfUserExist("noaschsFDF4@gmail.com");
+                return db.getMembersOfForum("1");                
+        }
 
-}
+
+        public System ForumsSys { get=> system; }
+    }
 }
