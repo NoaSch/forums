@@ -15,8 +15,7 @@ namespace forums.Logic
         private string subject;
 
        
-        
-
+      
 
         public Forum(string subject): base(false)
         {

@@ -18,6 +18,7 @@ namespace forums.Logic
         /*private string key;
 private string value;*/
 
+            //ini ttrue for initializing the system
         public SubForum(Forum parentForum,string subId, string subSubject, bool init): base(false)
         {
             this.subId = subId;
@@ -37,12 +38,15 @@ private string value;*/
             }
         }
 
+
+
         public SubForum(string id,string newSubName) : base(false)
         {
             this.subId = id;
             this.newSubName = newSubName;
         }
 
+        //get all discussion from the db
         private void getDiscussions()
         {
             List<string> Discussions = db.getDiscussions(subject);
@@ -53,6 +57,7 @@ private string value;*/
             }
         }
 
+        //get all moderators from the db
         private void getModerators()
         {
             List<string> modList = db.getModerators(subject);
@@ -69,6 +74,8 @@ private string value;*/
             set { subject = value; }
         }
 
+
+        //add moderator to the subforun
         public bool addModerator(string name)
         {
             if (db.addModerator(subId, name))
