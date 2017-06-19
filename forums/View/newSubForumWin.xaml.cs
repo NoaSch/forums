@@ -48,15 +48,23 @@ namespace forums.View
             else
             {
                 newSubName = newName.Text;
-                if (busLogic.ForumsSys.Forums[ForumName].addSubForum(newSubName))
+                string nextID = busLogic.ForumsSys.Forums[ForumName].getNextSubID();
+                List<string> newModList = new List<string>();
+                foreach (var item in members.SelectedItems)
+                {
+                    newModList.Add(item.ToString());
+                }
+
+                if (busLogic.ForumsSys.Forums[ForumName].addSubForum(nextID, newSubName, newModList))
 
                 {
 
-                    foreach (var item in members.SelectedItems)
+                    /*foreach (var item in members.SelectedItems)
                     {
                         busLogic.ForumsSys.Forums[ForumName].SubForums[newSubName].addModerator(item.ToString());
-                    }
+                    }*/
                     conf = true;
+                    
                     MessageBox.Show("creation complete");
                 }
                 else

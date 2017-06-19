@@ -54,12 +54,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Complaint.cs" />
     <Compile Include="Logic\Discussion.cs" />
     <Compile Include="Logic\Manager.cs" />
     <Compile Include="Logic\Message.cs" />
     <Compile Include="Logic\Moderator.cs" />
     <Compile Include="Logic\SubForum.cs" />
     <Compile Include="Logic\System.cs" />
+    <Compile Include="View\complaintWin.xaml.cs">
+      <DependentUpon>complaintWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ForumWin.xaml.cs">
       <DependentUpon>ForumWin.xaml</DependentUpon>
     </Compile>
@@ -75,7 +79,7 @@
     <Compile Include="View\SubForum.xaml.cs">
       <DependentUpon>SubForum.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\CreateUser.xaml">
+    <Page Include="View\complaintWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,9 +99,6 @@
     <Compile Include="Logic\BusLogic.cs" />
     <Compile Include="Logic\Forum.cs" />
     <Compile Include="Logic\Member.cs" />
-    <Compile Include="View\CreateUser.xaml.cs">
-      <DependentUpon>CreateUser.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

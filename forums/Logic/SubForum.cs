@@ -53,6 +53,11 @@ private string value;*/
             foreach (string subjecy in Discussions)
             {
                 discussions.Add(subject, new Discussion(subject));
+
+                /////
+                ///neet to add all messages
+                /////
+
                 Console.WriteLine("done");
             }
         }
@@ -87,11 +92,14 @@ private string value;*/
             return false;
         }
 
-
-
-
-
-
-
+        internal bool addModerator(Moderator mod)
+        {
+            if (db.addModerator(subId, mod.Name))
+            {              
+                moderators.Add(mod.Name, mod);
+                return true;
+            }
+            return false;
+        }
     }
 }

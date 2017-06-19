@@ -14,8 +14,9 @@ namespace forums.Logic
         Dictionary<string, Member> members;
         private string subject;
 
-       
-      
+
+
+
 
         public Forum(string subject): base(false)
         {
@@ -60,34 +61,102 @@ namespace forums.Logic
             ///getSubForumsOfForum
         }
 
-        internal bool addSubForum(string newSubName)
+        internal string getNextSubID()
         {
-            string newId = (subForums.Count+1).ToString();
+           return  (subForums.Count + 1).ToString();
+        }
 
-            if (db.addSubForum(newId,subject, newSubName))
-            {
-                subForums.Add(newSubName, new SubForum(this, newId, newSubName,false));
-                return true;
-            }
-            return false;
+        /* internal bool addSubForum(string newSubName)
+         {
+             string newId = (subForums.Count+1).ToString();
+
+             if (db.addSubForum(newId,subject, newSubName))
+             {
+                 subForums.Add(newSubName, new SubForum(this, newId, newSubName,false));
+                 return true;
+             }
+             return false;
+         }
+
+         internal bool isFreeSubforumSubject(string text)
+         {
+             if (subForums.ContainsKey(text))
+                 return false;
+             return true;
+         }
+
+         internal bool addMember(string username, string password)
+         {
+             if (db.addMember(subject, username, password))
+             {
+                 members.Add(username, new Member(username, password));
+                 return true;
+             }
+             return false;
+
+         }
+         */
+
+        internal bool addSubForum(string newId, string newSubName, List<string> newModeratorsID)
+{
+// string newId = (subForums.Count+1).ToString();
+
+ if (db.addSubForum(newId,subject, newSubName))
+ {
+     SubForum  newSB = new SubForum(this, newId, newSubName,false);
+      foreach (string mID  in newModeratorsID)
+      {
+                    Member mem = getMember(mID);
+                    Moderator mod = new Moderator(mem);
+                    newSB.addModerator(mod);
+
+     }
+                associateSubForumToForum(newSB);
+     //subForums.Add(newSubName,;
+     return true;
+ }
+ return false;
+}
+
+        private void associateSubForumToForum(SubForum newSB)
+        {
+            subForums.Add(newSB.Subject, newSB);
+        }
+
+        private Member getMember(string mID)
+        {
+            if (members.ContainsKey(mID))
+                return members[mID];
+            return null;
         }
 
         internal bool isFreeSubforumSubject(string text)
-        {
-            if (subForums.ContainsKey(text))
-                return false;
-            return true;
-        }
+{
+ if (subForums.ContainsKey(text))
+     return false;
+ return true;
+}
 
-        internal bool addMember(string username, string password)
-        {
-            if (db.addMember(subject, username, password))
+internal bool addUser(string username, string password)
+{
+            bool isValid = isUserNameFree(username);
+            if (isValid)
             {
-                members.Add(username, new Member(username, password));
-                return true;
+                if (db.addMember(subject, username, password))
+                {
+                    Member m = new Member(username, password);
+                    addMember(m);
+                    //members.Add(username,m);
+                    return true;
+                }
             }
-            return false;
+ return false;
 
+}
+
+        private void addMember(Member m)
+        {
+            members.Add(m.Name, m);
         }
 
         private void getExistingMembers()

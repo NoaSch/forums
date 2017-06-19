@@ -1,5 +1,4 @@
-﻿using forums.Logic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,23 +15,18 @@ using System.Windows.Shapes;
 namespace forums.View
 {
     /// <summary>
-    /// Interaction logic for CreateUser.xaml
+    /// Interaction logic for complaintWin.xaml
     /// </summary>
-    public partial class CreateUser : Window
+    public partial class complaintWin : Window
     {
-        BusLogic busLogic;
-        //string mail;
-        public CreateUser(BusLogic busLogic)
+        public complaintWin()
         {
             InitializeComponent();
-            this.busLogic = busLogic;
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
-
-
-
     }
-
-
+}

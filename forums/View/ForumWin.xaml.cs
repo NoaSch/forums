@@ -59,6 +59,8 @@ namespace forums.View
         {
             newSubForumWin nsb = new newSubForumWin(busLogic, forumSubject);
             nsb.ShowDialog();
+            if(nsb.conf== true)
+                subForums.ItemsSource = this.busLogic.ForumsSys.Forums[forumSubject].SubForums.Keys;
         }
     }
 }

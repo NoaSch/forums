@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:forums.View"
         mc:Ignorable="d"
         Title="SubForum" Height="300" Width="300">
-    <Grid>
+    <Grid HorizontalAlignment="Right" Margin="0,0,0.333,-0.333" Width="293">
         
     </Grid>
 </Window>
