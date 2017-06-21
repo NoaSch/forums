@@ -21,26 +21,28 @@ namespace forums.View
     public partial class ForumWin : Window
     {
         BusLogic busLogic;
-        string forumSubject;
+        //string forumSubject;
         string username;
+        Forum forum;
         public ForumWin(string forumSubject,BusLogic busLogic)
         {
             InitializeComponent();
             this.busLogic = busLogic;
-            subForums.ItemsSource = this.busLogic.ForumsSys.Forums[forumSubject].SubForums.Keys;
-            this.forumSubject = forumSubject;
-            forumName.Text = this.forumSubject;
+            forum = this.busLogic.ForumsSys.Forums[forumSubject];
+            subForums.ItemsSource = forum.SubForums.Keys;
+            //this.forumSubject = forum.ForumSubject;
+            forumName.Text = forumSubject;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoginWin lw = new LoginWin(busLogic, forumSubject);
+            LoginWin lw = new LoginWin(busLogic, forum.ForumSubject);
             lw.ShowDialog();
             if (lw.conf == true)
             {
                 username = lw.usr;
                 userLbl.Content = username;
-                if(busLogic.ForumsSys.Forums[forumSubject].Managers.ContainsKey(username))
+                if(forum.Managers.ContainsKey(username))
                 {
                     newSubBtn.Visibility = Visibility.Visible;
                 }
@@ -50,17 +52,45 @@ namespace forums.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            RegisterWin rw = new RegisterWin(busLogic, forumSubject);
+            RegisterWin rw = new RegisterWin(busLogic, forum.ForumSubject);
             rw.ShowDialog();
             
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            newSubForumWin nsb = new newSubForumWin(busLogic, forumSubject);
+            newSubForumWin nsb = new newSubForumWin(busLogic, forum.ForumSubject);
             nsb.ShowDialog();
             if(nsb.conf== true)
-                subForums.ItemsSource = this.busLogic.ForumsSys.Forums[forumSubject].SubForums.Keys;
+                subForums.ItemsSource = forum.SubForums.Keys;
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (username == null)
+            {
+                MessageBox.Show("please login");
+            }
+            else
+            {
+                complaintWin cw;
+                if (subForums.SelectedItem != null)
+                {
+                    cw = new complaintWin(username, forum, subForums.SelectedItem.ToString());
+                    cw.ShowDialog();
+
+                }
+                else
+                {
+                    cw = new complaintWin(username, forum, "");
+                    cw.ShowDialog();
+                }
+            }
+        }
+
+        private void subForums_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

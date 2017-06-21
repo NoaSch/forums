@@ -30,14 +30,23 @@ private string value;*/
             if (init)
             {
                 //get all moderators
-                getModerators();
+                initModerators();
 
 
                 //get allDiscussions
-                getDiscussions();
+                initDiscusstions();
             }
         }
 
+        private void initDiscusstions()
+        {
+            getDiscussions();
+        }
+
+        private void initModerators()
+        {
+            getModerators();
+        }
 
 
         public SubForum(string id,string newSubName) : base(false)
@@ -50,7 +59,7 @@ private string value;*/
         private void getDiscussions()
         {
             List<string> Discussions = db.getDiscussions(subject);
-            foreach (string subjecy in Discussions)
+            foreach (string subject in Discussions)
             {
                 discussions.Add(subject, new Discussion(subject));
 
@@ -65,7 +74,8 @@ private string value;*/
         //get all moderators from the db
         private void getModerators()
         {
-            List<string> modList = db.getModerators(subject);
+            //List<string> modList = db.getModerators(subject);
+            List<string> modList = db.getModerators(subId);
             foreach (string username in modList)
             {
                 moderators.Add(username, new Moderator(containingForum.Members[username]));
@@ -77,6 +87,16 @@ private string value;*/
         {
             get { return subject; }
             set { subject = value; }
+        }
+        public string SubId
+        {
+            get { return subId; }
+         
+        }
+
+        public Dictionary<string, Moderator> Moderators
+        {
+            get { return moderators; }
         }
 
 

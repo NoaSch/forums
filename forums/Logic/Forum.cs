@@ -13,7 +13,7 @@ namespace forums.Logic
         Dictionary<string, Manager> managers;
         Dictionary<string, Member> members;
         private string subject;
-
+        List<Complaint> complaints;
 
 
 
@@ -25,6 +25,8 @@ namespace forums.Logic
             subForums = new Dictionary<string, SubForum>();
             members = new Dictionary<string, Member>();
             managers = new Dictionary<string, Manager>();
+            complaints = new List<Complaint>();
+           
 
             //add members
             getExistingMembers();
@@ -207,10 +209,37 @@ internal bool addUser(string username, string password)
             return true;
         }
 
+        public bool addComplaint(string senderUserName, string complaintAboutUserNmae,string content, string subforumSubject)
+        {
+            Member recipiant = getMember(complaintAboutUserNmae);
+            Member sender = getMember(senderUserName);
+            Complaint c = new Complaint(content);
+            c.AddSender(sender);
+            c.AddRecipiant(recipiant);
+
+            if(subforumSubject != "")
+            {
+                SubForum sb = getSubForum(subforumSubject);
+            }
+
+            complaints.Add(c);
+
+           if(db.addComplaint(c))
+            {
+                return true;
+            }           
+            return false;
+        }
+
+        private SubForum getSubForum(string subforumSubject)
+        {
+            if (subForums.ContainsKey(subforumSubject))
+                return subForums[subforumSubject];
+            return null;
+        }
 
 
-
-        /*
+        /*s
         private void LoadMembers()
         {
             string path=""; 

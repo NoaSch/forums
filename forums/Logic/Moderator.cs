@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace forums.Logic
 {
-    class Moderator : Member
+    public class Moderator : Member
     {
         private Member member;
 

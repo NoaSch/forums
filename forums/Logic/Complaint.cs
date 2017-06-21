@@ -18,6 +18,7 @@ namespace forums.Logic
         public Complaint(string content)
         {
             this.content = content;
+            this.date = DateTime.Now;
         }
 
 
@@ -30,6 +31,40 @@ namespace forums.Logic
         {
             this.complaintSubject = member;
         }
+
+        public void AddSubForum(SubForum sb)
+        {
+            this.subForum = sb;
+        }
+
+        public DateTime Date
+        {
+            get { return date; }
+
+        }
+        public string Content
+        {
+            get { return content; }
+
+        }
+        public SubForum SubForum
+        {
+            get { return subForum; }
+
+        }
+        public Member Complaintant
+        {
+            get { return complaintant; }
+
+        }
+
+        public Member Recipiant
+        {
+            get { return complaintSubject; }
+
+        }
+
+
     }
 
 }

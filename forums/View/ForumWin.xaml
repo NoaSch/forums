@@ -8,10 +8,10 @@
         Title="Window1" Height="300" Width="437.304">
     <Grid Margin="0,0,-0.333,-0.333">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="246*"/>
-            <ColumnDefinition Width="185*"/>
+            <ColumnDefinition Width="309*"/>
+            <ColumnDefinition Width="122*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="subForums" HorizontalAlignment="Left" Height="100" Margin="39,110,0,0" VerticalAlignment="Top" Width="100">
+        <ListView x:Name="subForums" SelectionMode="Single" HorizontalAlignment="Left" Height="100" Margin="39,110,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="subForums_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -22,11 +22,12 @@
         <TextBlock x:Name="forumName" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="0,26,104.667,0" HorizontalAlignment="Right" Width="179" Height="37" FontSize="24" FontWeight="Bold" TextDecorations="Underline" Grid.ColumnSpan="2"/>
         <Button Content="Login" HorizontalAlignment="Left" Margin="162,110,0,0" VerticalAlignment="Top" Width="75" Height="20" Click="Button_Click"/>
         <Button Content="Register" HorizontalAlignment="Left" Margin="162,161,0,0" VerticalAlignment="Top" Width="75" Height="21" Click="Button_Click_1"/>
-        <StackPanel HorizontalAlignment="Left" Height="30" Orientation="Horizontal" Margin="3,0,0,0" VerticalAlignment="Top" Width="172" Grid.Column="1">
+        <StackPanel HorizontalAlignment="Left" Height="30" Orientation="Horizontal" Margin="3.333,0,-53.333,0" VerticalAlignment="Top" Width="172" Grid.Column="1">
             <Label Content="Hello " Height="22" Margin="0,0,0,0" HorizontalAlignment="Left" Width="40"/>
             <Label x:Name="userLbl" Content="Guest" Margin="0,2" HorizontalAlignment="Left" Width="100" FontWeight="Bold"/>
         </StackPanel>
-        <Button x:Name="newSubBtn" Content="Add Sub Forum" HorizontalAlignment="Left" Margin="39,241,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_2" Visibility="Collapsed"/>
+        <Button x:Name="newSubBtn" Content="Add Sub Forum" HorizontalAlignment="Left" Margin="39,241,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_2" Visibility="Collapsed" Height="0"/>
+        <Button Content="Write Complaint" Margin="171,195,1.667,0" VerticalAlignment="Top" Click="Button_Click_3" Height="20"/>
 
     </Grid>
 </Window>
