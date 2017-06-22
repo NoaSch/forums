@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace forums.Logic
 {
-    public class Forum: BusLogic
+    public class Forum : BusLogic
     {
         Dictionary<string, SubForum> subForums;
         Dictionary<string, Manager> managers;
@@ -18,15 +18,15 @@ namespace forums.Logic
 
 
 
-        public Forum(string subject): base(false)
+        public Forum(string subject) : base(false)
         {
-           
+
             this.subject = subject;
             subForums = new Dictionary<string, SubForum>();
             members = new Dictionary<string, Member>();
             managers = new Dictionary<string, Manager>();
             complaints = new List<Complaint>();
-           
+
 
             //add members
             getExistingMembers();
@@ -45,17 +45,17 @@ namespace forums.Logic
             List<string> names = db.getMenagers(subject);
             foreach (string name in names)
             {
-                managers.Add(name,new Manager(members[name]));
+                managers.Add(name, new Manager(members[name]));
             }
         }
 
         private void getExistingSubForums()
         {
-           
+
             Dictionary<string, string> subFList = db.getSubForumsOfForum(subject);
-            foreach (KeyValuePair<string,string> pair in subFList)
+            foreach (KeyValuePair<string, string> pair in subFList)
             {
-                subForums.Add(pair.Value,new SubForum(this,pair.Key,pair.Value,true));
+                subForums.Add(pair.Value, new SubForum(this, pair.Key, pair.Value, true));
                 Console.WriteLine("done");
             }
 
@@ -65,7 +65,7 @@ namespace forums.Logic
 
         internal string getNextSubID()
         {
-           return  (subForums.Count + 1).ToString();
+            return (subForums.Count + 1).ToString();
         }
 
         /* internal bool addSubForum(string newSubName)
@@ -100,25 +100,25 @@ namespace forums.Logic
          */
 
         internal bool addSubForum(string newId, string newSubName, List<string> newModeratorsID)
-{
-// string newId = (subForums.Count+1).ToString();
+        {
+            // string newId = (subForums.Count+1).ToString();
 
- if (db.addSubForum(newId,subject, newSubName))
- {
-     SubForum  newSB = new SubForum(this, newId, newSubName,false);
-      foreach (string mID  in newModeratorsID)
-      {
+            if (db.addSubForum(newId, subject, newSubName))
+            {
+                SubForum newSB = new SubForum(this, newId, newSubName, false);
+                foreach (string mID in newModeratorsID)
+                {
                     Member mem = getMember(mID);
                     Moderator mod = new Moderator(mem);
                     newSB.addModerator(mod);
 
-     }
+                }
                 associateSubForumToForum(newSB);
-     //subForums.Add(newSubName,;
-     return true;
- }
- return false;
-}
+                //subForums.Add(newSubName,;
+                return true;
+            }
+            return false;
+        }
 
         private void associateSubForumToForum(SubForum newSB)
         {
@@ -133,14 +133,14 @@ namespace forums.Logic
         }
 
         internal bool isFreeSubforumSubject(string text)
-{
- if (subForums.ContainsKey(text))
-     return false;
- return true;
-}
+        {
+            if (subForums.ContainsKey(text))
+                return false;
+            return true;
+        }
 
-internal bool addUser(string username, string password)
-{
+        internal bool addUser(string username, string password)
+        {
             bool isValid = isUserNameFree(username);
             if (isValid)
             {
@@ -152,9 +152,9 @@ internal bool addUser(string username, string password)
                     return true;
                 }
             }
- return false;
+            return false;
 
-}
+        }
 
         private void addMember(Member m)
         {
@@ -187,7 +187,7 @@ internal bool addUser(string username, string password)
         public Dictionary<string, Member> Members
         {
             get { return members; }
-            
+
         }
 
         public Dictionary<string, Manager> Managers
@@ -209,7 +209,7 @@ internal bool addUser(string username, string password)
             return true;
         }
 
-        public bool addComplaint(string senderUserName, string complaintAboutUserNmae,string content, string subforumSubject)
+        public bool addComplaint(string senderUserName, string complaintAboutUserNmae, string content, string subforumSubject)
         {
             Member recipiant = getMember(complaintAboutUserNmae);
             Member sender = getMember(senderUserName);
@@ -217,17 +217,17 @@ internal bool addUser(string username, string password)
             c.AddSender(sender);
             c.AddRecipiant(recipiant);
 
-            if(subforumSubject != "")
+            if (subforumSubject != "")
             {
                 SubForum sb = getSubForum(subforumSubject);
             }
 
             complaints.Add(c);
 
-           if(db.addComplaint(c))
+            if (db.addComplaint(c))
             {
                 return true;
-            }           
+            }
             return false;
         }
 

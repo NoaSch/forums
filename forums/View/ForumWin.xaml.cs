@@ -24,7 +24,7 @@ namespace forums.View
         //string forumSubject;
         string username;
         Forum forum;
-        public ForumWin(string forumSubject,BusLogic busLogic)
+        public ForumWin(string forumSubject, BusLogic busLogic)
         {
             InitializeComponent();
             this.busLogic = busLogic;
@@ -42,7 +42,7 @@ namespace forums.View
             {
                 username = lw.usr;
                 userLbl.Content = username;
-                if(forum.Managers.ContainsKey(username))
+                if (forum.Managers.ContainsKey(username))
                 {
                     newSubBtn.Visibility = Visibility.Visible;
                 }
@@ -54,7 +54,7 @@ namespace forums.View
         {
             RegisterWin rw = new RegisterWin(busLogic, forum.ForumSubject);
             rw.ShowDialog();
-            
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -62,7 +62,7 @@ namespace forums.View
             newSubForumWin nsb = new newSubForumWin(busLogic, forum.ForumSubject);
             nsb.ShowDialog();
             if (nsb.conf == true)
-            {               
+            {
                 subForums.ItemsSource = forum.SubForums.Keys;
             }
         }
@@ -87,6 +87,21 @@ namespace forums.View
                     cw = new complaintWin(username, forum, "");
                     cw.ShowDialog();
                 }
+            }
+        }
+
+
+        private void Createfg_Click(object sender, RoutedEventArgs e)
+        {
+            if (username == null)
+            {
+                MessageBox.Show("please login");
+            }
+            else
+            {
+                CreateFriendsGroup fg;
+                fg = new CreateFriendsGroup(username);
+                fg.ShowDialog();
             }
         }
 
