@@ -20,6 +20,7 @@ namespace forums.View
     /// </summary>
     public partial class newSubForumWin : Window
     {
+        public string newSubName = "";
         string ForumName;
         BusLogic busLogic;
         public bool conf = false;
@@ -40,22 +41,22 @@ namespace forums.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string newSubName = "";
+            //string newSubName = "";
             if (newName.Text == "")
                 MessageBox.Show("please choose name", "Error");
-            else if (!busLogic.ForumsSys.Forums[ForumName].isFreeSubforumSubject(newName.Text))
+            else if (!busLogic.ForumsSys.getForumBySubject(ForumName).isFreeSubforumSubject(newName.Text))
                 MessageBox.Show("the name already exist", "Error");
             else
             {
                 newSubName = newName.Text;
-                string nextID = busLogic.ForumsSys.Forums[ForumName].getNextSubID();
+                string nextID = busLogic.ForumsSys.getForumBySubject(ForumName).getNextSubID();
                 List<string> newModList = new List<string>();
                 foreach (var item in members.SelectedItems)
                 {
                     newModList.Add(item.ToString());
                 }
 
-                if (busLogic.ForumsSys.Forums[ForumName].addSubForum(nextID, newSubName, newModList))
+                if (busLogic.ForumsSys.getForumBySubject(ForumName).addSubForum(nextID, newSubName, newModList))
 
                 {
 
@@ -64,7 +65,7 @@ namespace forums.View
                         busLogic.ForumsSys.Forums[ForumName].SubForums[newSubName].addModerator(item.ToString());
                     }*/
                     conf = true;
-                    
+
                     MessageBox.Show("creation complete");
                 }
                 else

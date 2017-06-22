@@ -54,14 +54,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\ActionLogger.cs" />
     <Compile Include="Logic\Complaint.cs" />
     <Compile Include="Logic\Discussion.cs" />
+    <Compile Include="Logic\ErrorLogger.cs" />
     <Compile Include="Logic\FriendGroup.cs" />
+    <Compile Include="Logic\guest.cs" />
+    <Compile Include="Logic\Logger.cs" />
+    <Compile Include="Logic\management_rule.cs" />
     <Compile Include="Logic\Manager.cs" />
     <Compile Include="Logic\Message.cs" />
     <Compile Include="Logic\Moderator.cs" />
+    <Compile Include="Logic\Notification.cs" />
+    <Compile Include="Logic\observable_discussion.cs" />
+    <Compile Include="Logic\policy.cs" />
+    <Compile Include="Logic\security_rule.cs" />
+    <Compile Include="Logic\sender_Obsrver.cs" />
     <Compile Include="Logic\SubForum.cs" />
+    <Compile Include="Logic\suspension_rule.cs" />
     <Compile Include="Logic\System.cs" />
+    <Compile Include="Observer.cs" />
     <Compile Include="View\complaintWin.xaml.cs">
       <DependentUpon>complaintWin.xaml</DependentUpon>
     </Compile>
@@ -79,12 +91,6 @@
     </Compile>
     <Compile Include="View\RegisterWin.xaml.cs">
       <DependentUpon>RegisterWin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SubForum.xaml.cs">
-      <DependentUpon>SubForum.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\AddMessage.xaml.cs">
-      <DependentUpon>AddMessage.xaml</DependentUpon>
     </Compile>
     <Page Include="View\complaintWin.xaml">
       <SubType>Designer</SubType>
@@ -123,14 +129,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegisterWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SubForum.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\AddMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

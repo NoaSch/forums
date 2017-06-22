@@ -11,10 +11,10 @@
             <ColumnDefinition Width="185*"/>
             <ColumnDefinition Width="246*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="subForums" SelectionMode="Single" HorizontalAlignment="Left" Height="110" Margin="39,128,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="subForums_SelectionChanged">
+        <ListView x:Name="subForums" SelectionMode="Single" HorizontalAlignment="Left" Height="110" Margin="39,128,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="subForums_SelectionChanged" ItemsSource="{Binding Path=observableSubForum}" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn />
                 </GridView>
             </ListView.View>
         </ListView>

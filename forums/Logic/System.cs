@@ -1,4 +1,5 @@
 ﻿using forums.Data;
+using System;
 using System.Collections.Generic;
 
 namespace forums.Logic
@@ -25,5 +26,23 @@ namespace forums.Logic
             get { return forums; }
             set { forums = value; }
         }
+
+        public void find_moderator_to_suspend()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void addForum(string subject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Forum getForumBySubject(string subject)
+        {
+            if(forums.ContainsKey(subject))
+                return forums[subject];
+            return null;
+        }
     }
 }
+
