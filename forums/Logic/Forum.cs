@@ -123,7 +123,7 @@ namespace forums.Logic
                     newSB.addModerator(mod);
 
                 }
-                associateSubForumToForum(newSB);
+                addToSubForum(newSB);
                 //subForums.Add(newSubName,;
                 return true;
             }
@@ -158,7 +158,7 @@ namespace forums.Logic
         }
         */
 
-        private void associateSubForumToForum(SubForum newSB)
+        private void addToSubForum(SubForum newSB)
         {
             subForums.Add(newSB.Subject, newSB);
         }
@@ -269,7 +269,7 @@ namespace forums.Logic
             return false;
         }
 
-        private SubForum getSubForum(string subforumSubject)
+        public SubForum getSubForum(string subforumSubject)
         {
             if (subForums.ContainsKey(subforumSubject))
                 return subForums[subforumSubject];

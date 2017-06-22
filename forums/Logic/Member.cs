@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 namespace forums.Logic
 {
 
-    enum Status
+   public  enum Status
     {
         active,
         inactive
     };
 
-    public class Member
+    public class Member : guest
     {
         string name;
         string password;
-        Status status; 
+        Status status;
 
 
-        public Member(string name,string pass)
+        public Member(string name, string pass)
         {
             this.name = name;
             this.password = pass;
@@ -37,7 +37,12 @@ namespace forums.Logic
         public string Password
         {
             get { return password; }
-           
+
+        }
+
+        public void ChangeStatus(Status status_s, DateTime Date)
+        {
+            throw new NotImplementedException();
         }
     }
 }

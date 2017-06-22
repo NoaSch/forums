@@ -46,12 +46,12 @@ namespace forums.View
                 {
 
                     //check if the mail exists and the password correct
-                    if (!(busLogic.ForumsSys.Forums[forumName].Members.ContainsKey(usrText.Text)))
+                    if (!(busLogic.ForumsSys.getForumBySubject(forumName).Members.ContainsKey(usrText.Text)))
                     {
                         System.Windows.MessageBox.Show("UserName not Exist", "Error");
 
                     }
-                    else if (busLogic.ForumsSys.Forums[forumName].Members[usrText.Text].Password != passBox.Password)
+                    else if (busLogic.ForumsSys.getForumBySubject(forumName).Members[usrText.Text].Password != passBox.Password)
                     {
                         System.Windows.MessageBox.Show("UserName not Exist", "Error");
 

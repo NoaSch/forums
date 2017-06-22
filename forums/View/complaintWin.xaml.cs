@@ -36,7 +36,7 @@ namespace forums.View
             if (subForumSubject != "")
             {
                 aboutManager = false;
-                moderatorsList.ItemsSource = forum.SubForums[subForumSubject].Moderators.Keys;
+                moderatorsList.ItemsSource = forum.getSubForum(subForumSubject).Moderators.Keys;
                
             }
             else

@@ -46,7 +46,7 @@ namespace forums.View
       else
       {
 
-                  if (busLogic.ForumsSys.Forums[forumName].addUser(usrText.Text, passBox.Password))
+      if (busLogic.ForumsSys.getForumBySubject(forumName).addUser(usrText.Text, passBox.Password))
                   {
                       MessageBox.Show("Welcome to the forum now please login");
                       conf = true;

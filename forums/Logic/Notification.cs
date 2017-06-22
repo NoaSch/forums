@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace forums.Logic
 {
-    public class Moderator : Member
+    public class Notification
     {
-        private Member member;
+        private DateTime _date;
+        private String _content;
+        public Member _unnamed_Member_;
 
-
-        public Moderator(Member member) : base(member.Name, member.Password)
-        {
-        }
-        public int get_number_of_complaints()
+        public void sendNotification(Object aMember_m)
         {
             throw new NotImplementedException();
+
         }
     }
 }

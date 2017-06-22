@@ -6,48 +6,44 @@ using System.Threading.Tasks;
 
 namespace forums.Logic
 {
-    class Message : BusLogic
+    class Message 
     {
-        private string parentDiscussion;
-        public int msgID;
-        public string discussionSubject;
-        public string title;
-        public string content;
-        public DateTime dateCreated;
-        public string publisher;
-        public string parentMsg;
+        
+        
+            private String _title;
+            private String _content;
+            private DateTime _date;
+            public Message _prev_message;
+            public HashSet<Message> _comment = new HashSet<Message>();
+            public Discussion _containing_discussion;
+            public Member _sender;
+            public Member _recipiant;
 
-        //ID, discussionSubject, title, content, dateCreated, publisher
-
-        //message created by user
-        public Message(string parentD, string parentM, int msg) : base(false)
-        {
-            this.parentDiscussion = parentD;
-            this.parentMsg = parentM;
-            this.msgID = msg;
-            /*
-            parentDiscussion;
-            msgID;
-            discussionSubject;
-            title;
-            content;
-            dateCreated;
-            publisher;
-            parentMsg;
-            */
+            public Message createMessage(Object aString_subject, Object aString_content, Object aString_username)
+            {
+            throw new NotImplementedException();
         }
 
-        //message from the db
-        public Message(int id, string discussionSubject, string title, string content, DateTime date, string publisher, string commentTo) : base(false)
-        {
-            this.parentMsg = commentTo;
-            this.msgID = id;
-            this.discussionSubject = discussionSubject;
-            this.title = title;
-            this.content = content;
-            this.dateCreated = date;
-            this.publisher = publisher;
+            public void addAsComment(Object aMessage_m)
+            {
+            throw new NotImplementedException();
         }
+
+            public Member getPublisher()
+            {
+            throw new NotImplementedException();
+        }
+
+            public Discussion getDiscussion()
+            {
+            throw new NotImplementedException();
+        }
+
+            public HashSet<FriendGroup> getAllFriendsGroup()
+            {
+            throw new NotImplementedException();
+        }
+        
 
     }
 }

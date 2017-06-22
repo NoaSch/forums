@@ -256,6 +256,8 @@ namespace forums.Data
             return ans;
         }
 
+
+
         public List<string> getForums()
         {
             List<string> ans = new List<string>();
@@ -411,7 +413,7 @@ namespace forums.Data
             }
         }
 
-        internal List<Message> getMessages(string discSubject)
+        /*internal List<Message> getMessages(string discSubject)
         {
             List<Message> ans = new List<Message>();
             conn = new OleDbConnection();
@@ -483,7 +485,7 @@ namespace forums.Data
                 conn.Close();
                 return false;
             }
-        }
+        }*/
 
         public Dictionary<string, Discussion> getDiscussionsOfSubForum(string subForumSubject)
         {
