@@ -35,18 +35,19 @@ namespace forums.View
         {
             if (name.Text != "")
             {
-                List<string> members = new List<string>();
-                members.Add(username);
-                //elinor func
+                List<Member> members = new List<Member>();
+                Member m = buslogic.ForumsSys.Forums[forum].getMember(username);
+                members.Add(m);
                 //create new friend group with the current user as a member in it
-                //FriendGroup fg = new FriendGroup(this.forum, name.Text, members);
-                //if (buslogic.ForumsSys.Forums[forum].addFriendsGroup(forum, name.Text, username))
-                //{
-                //    MessageBox.Show("Friend group created succesfully", "Done");
-                //    this.Close();
-                //}
-                //else
-                //    MessageBox.Show("Friend group name already exist", "Error");
+                FriendGroup fg = new FriendGroup(name.Text, members);
+                m.addFriendGroup(fg);
+                if (buslogic.ForumsSys.Forums[forum].createNewFriendsGroup(name.Text, username))
+                {
+                    MessageBox.Show("Friend group created succesfully", "Done");
+                    this.Close();
+                }
+                else
+                    MessageBox.Show("Friend group name already exist", "Error");
             }
             else
             {

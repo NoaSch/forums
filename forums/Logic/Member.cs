@@ -1,4 +1,5 @@
-﻿using System;
+﻿using forums.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace forums.Logic
 {
-
     enum Status
     {
         active,
@@ -17,14 +17,15 @@ namespace forums.Logic
     {
         string name;
         string password;
-        Status status; 
+        Status status;
+        HashSet<FriendGroup> friendGroups;
 
-
-        public Member(string name,string pass)
+        public Member(string name, string pass)
         {
             this.name = name;
             this.password = pass;
             this.status = Status.active;
+            friendGroups = new HashSet<FriendGroup>();
         }
 
 
@@ -37,7 +38,11 @@ namespace forums.Logic
         public string Password
         {
             get { return password; }
-           
+        }
+
+        internal void addFriendGroup(FriendGroup fg)
+        {
+            friendGroups.Add(fg);
         }
     }
 }

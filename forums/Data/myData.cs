@@ -69,18 +69,15 @@ namespace forums.Data
             return ans;
         }
 
-        //elinor func
-        /*
-        internal List<FriendGroup> getFriendsGroupsOfForum(string subject)
+        internal Dictionary<string, List<string>> getFriendsGroupsOfForum(string subject)
         {
-            List<FriendGroup> ans = new List<FriendGroup>();
+            Dictionary<string, List<string>> ans = new Dictionary<string, List<string>>();
             HashSet<Tuple<string, string>> friendsGroups = new HashSet<Tuple<string, string>>();
             conn = new OleDbConnection();
             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
             conn.Open();
             OleDbDataReader reader = null;
-            cmd = new OleDbCommand("SELECT * from FriendsGroupMembers WHERE Forum ='" + subject.Trim() + "'", conn);
-            List<string> members = new List<string>();
+            cmd = new OleDbCommand("SELECT * from FriendsGroup WHERE Forum ='" + subject.Trim() + "'", conn);
             reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -88,45 +85,55 @@ namespace forums.Data
                 {
                     string forumName = s.GetString(0);
                     string groupName = s.GetString(1);
-                    friendsGroups.Add
-                    //members.Add(s.GetString(2));
-                    //ans.Add(new FriendGroup(forumName, groupName));
+                    Tuple<string, string> toadd = new Tuple<string, string>(forumName, groupName);
+                    friendsGroups.Add(toadd);
+
                 }
                 conn.Close();
+                ans = getFriendsGroupsMembers(friendsGroups);
                 return ans;
             }
             conn.Close();
+            ans = getFriendsGroupsMembers(friendsGroups);
             return ans;
         }
 
-        internal List<FriendGroup> getFriendsGroupsMOfForum(string subject)
+        internal List<string> getFgMembers(string query)
         {
-            List<FriendGroup> ans = new List<FriendGroup>();
-            HashSet<Tuple<string, string>> friendsGroups = new HashSet<Tuple<string, string>>();
             conn = new OleDbConnection();
             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
             conn.Open();
             OleDbDataReader reader = null;
-            cmd = new OleDbCommand("SELECT * from FriendsGroupMembers WHERE Forum ='" + subject.Trim() + "'", conn);
-            List<string> members = new List<string>();
+            cmd = new OleDbCommand(query, conn);
+            List<string> fgMembers = new List<string>();
             reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
                 foreach (DbDataRecord s in reader)
                 {
-                    string forumName = s.GetString(0);
-                    string groupName = s.GetString(1);
-                    friendsGroups.Add
-                    //members.Add(s.GetString(2));
-                    //ans.Add(new FriendGroup(forumName, groupName));
+                    //Member m;
+                    //ForumsSys.Forums.TryGetValue(s.GetString(0), out m);
+                    fgMembers.Add(s.GetString(0));
                 }
                 conn.Close();
-                return ans;
+                return fgMembers;
             }
             conn.Close();
+            return fgMembers;
+        }
+
+        internal Dictionary<string, List<string>> getFriendsGroupsMembers(HashSet<Tuple<string, string>> friendsGroups)
+        {
+            Dictionary<string, List<string>> ans = new Dictionary<string, List<string>>();
+            foreach (Tuple<string, string> tuple in friendsGroups)
+            {
+                string currentQuery = "SELECT Member from FriendsGroupMembers WHERE Forum ='" + tuple.Item1 + "' and FriendGroup='" + tuple.Item2 + "'";
+                List<string> newMembersList = getFgMembers(currentQuery);
+                ans.Add(tuple.Item2, newMembersList);
+            }
             return ans;
         }
-        */
+
 
         internal bool addSubForum(string id, string forumSubject, string newSubName)
         {
@@ -516,7 +523,7 @@ namespace forums.Data
             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
             cmd = new OleDbCommand();
             //discussionSubject, title, content, dateCreated, publisher
-            cmd.CommandText = "INSERT into FriendsGroup ([Forum],[FriendsGroupName]) values (@forum, @name)";
+            cmd.CommandText = "INSERT into FriendsGroup ([Forum],[FriendGroupName]) values (@forum, @name)";
             cmd.Connection = conn;
             conn.Open();
             if (conn.State == ConnectionState.Open)
@@ -550,7 +557,7 @@ namespace forums.Data
             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
             cmd = new OleDbCommand();
             //discussionSubject, title, content, dateCreated, publisher
-            cmd.CommandText = "INSERT into FriendsGroupMembers ([Forum],[FriendsGroup],[Member]) values (@forum, @name, @member)";
+            cmd.CommandText = "INSERT into FriendsGroupMembers ([Forum],[FriendGroup],[Member]) values (@forum, @name, @member)";
             cmd.Connection = conn;
             DateTime date = DateTime.Now;
             conn.Open();
@@ -558,7 +565,7 @@ namespace forums.Data
             {
                 cmd.Parameters.Add("@forum", OleDbType.VarChar).Value = forumName;
                 cmd.Parameters.Add("@name", OleDbType.VarChar).Value = fg.name;
-                cmd.Parameters.Add("@member", OleDbType.Date).Value = fg.members[0];
+                cmd.Parameters.Add("@member", OleDbType.VarChar).Value = fg.members[0].Name;
 
                 try
                 {

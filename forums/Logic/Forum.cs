@@ -29,14 +29,12 @@ namespace forums.Logic
 
             //add members
             getExistingMembers();
-
-
             //add menagers
             getForumMansgers();
-
-
             //add subForums
             getExistingSubForums();
+            //add friends groups
+            getForumGroups();
         }
 
         private void getForumMansgers()
@@ -66,17 +64,23 @@ namespace forums.Logic
             return (subForums.Count + 1).ToString();
         }
 
-        //elinor func
-        /*
         private void getForumGroups()
         {
-            List<FriendGroup> groups = db.getFriendsGroupsOfForum(subject);
-            foreach (FriendGroup fg in groups)
+            Dictionary<string, List<string>> toConvert = db.getFriendsGroupsOfForum(subject);
+            foreach (KeyValuePair<string, List<string>> item in toConvert)
             {
-                //allFriendsGroups.Add(name, new Manager(members[name]));
+                List<Member> newMembersList = new List<Member>();
+                foreach (string usernm in item.Value)
+                {
+                    Member m;
+                    this.members.TryGetValue(usernm, out m);
+                    newMembersList.Add(m);
+                }
+                FriendGroup fg = new FriendGroup(item.Key, newMembersList);
+                allFriendsGroups.Add(fg);
             }
         }
-        */
+
 
         /* internal bool addSubForum(string newSubName)
          {
@@ -130,9 +134,7 @@ namespace forums.Logic
             return false;
         }
 
-        //elinor func
-        /*
-        internal bool addFriendsGroup(string forum, string name, string user)
+        internal bool createNewFriendsGroup(string name, string user)
         {
             //check for uniqe group name
             foreach (FriendGroup item in allFriendsGroups)
@@ -143,12 +145,13 @@ namespace forums.Logic
                 }
             }
             //creating friend group object and adding it to db & to dictionary
-            List<string> member = new List<string>();
-            member.Add(user);
-            FriendGroup fg = new FriendGroup(forum, name, member);
-            if (db.addFriendsGroup(fg)) //adding to FriendGroup table
+            List<Member> member = new List<Member>();
+            Member m = this.getMember(user);
+            member.Add(m);
+            FriendGroup fg = new FriendGroup(name, member);
+            if (db.addFriendsGroup(fg, this.subject)) //adding to FriendGroup table
             {
-                if (db.addFriendsGroupMembers(fg)) //adding to FriendsGroupMembers table
+                if (db.addFriendsGroupMembers(fg, this.subject)) //adding to FriendsGroupMembers table
                 {
                     allFriendsGroups.Add(fg);
                     return true;
@@ -156,14 +159,13 @@ namespace forums.Logic
             }
             return false;
         }
-        */
 
         private void associateSubForumToForum(SubForum newSB)
         {
             subForums.Add(newSB.Subject, newSB);
         }
 
-        private Member getMember(string mID)
+        public Member getMember(string mID)
         {
             if (members.ContainsKey(mID))
                 return members[mID];
