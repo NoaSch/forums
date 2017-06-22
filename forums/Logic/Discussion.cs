@@ -41,9 +41,6 @@ namespace forums.Logic
             throw new NotImplementedException();
         }
 
-        //internal Dictionary<string, Message> getMessages()
-        //{
-        //    return messages;
-        //}
+
     }
 }

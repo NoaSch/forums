@@ -54,7 +54,6 @@ namespace forums.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string recipiant;
-            //  public bool addComplaint(string senderUserName, string complaintAboutUserNmae,string content, string subforumSubject)
             if (aboutManager)
             {
                 recipiant = managersList.SelectedValue.ToString();

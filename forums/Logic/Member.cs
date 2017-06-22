@@ -18,10 +18,11 @@ namespace forums.Logic
     {
         string name;
         string password;
+        Status status;
         HashSet<FriendGroup> friendGroups;
 
 
-        public Member(string name,string pass)
+        public Member(string name, string pass)
         {
             this.name = name;
             this.password = pass;
@@ -41,7 +42,7 @@ namespace forums.Logic
             get { return password; }
         }
 
-                   public void ChangeStatus(Status status_s, DateTime Date)
+        public void ChangeStatus(Status status_s, DateTime Date)
         {
             throw new NotImplementedException();
         }
@@ -49,6 +50,6 @@ namespace forums.Logic
         {
             friendGroups.Add(fg);
         }
-        }
+
     }
 }

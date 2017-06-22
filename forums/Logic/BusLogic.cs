@@ -24,7 +24,6 @@ namespace forums.Logic
 
         public Dictionary<string, Tuple<string, string>> testFunc()
         {
-            // return data.checkIfUserExist("noaschsFDF4@gmail.com");
             return db.getMembersOfForum("1");
         }
 

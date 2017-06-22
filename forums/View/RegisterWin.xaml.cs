@@ -62,47 +62,7 @@ namespace forums.View
 
       }
   
-
-
-
-        /*  private void register_Click(object sender, RoutedEventArgs e)
-          {
-
-              if (passBox.Password == "" || usrText.Text == "")
-              {
-                  System.Windows.MessageBox.Show("All fields are mandatory", "Error");
-
-              }
-
-
-              else
-              {
-                  while (!conf)
-                  {
-                      //check if the mail exists and the password correct
-                      if (!(busLogic.ForumsSys.Forums[forumName].isUserNameFree(usrText.Text)))
-                      {
-                          System.Windows.MessageBox.Show("UserName Already Exist", "Error");
-
-                      }
-                      else
-                      {
-                          if (busLogic.ForumsSys.Forums[forumName].addUser(usrText.Text, passBox.Password))
-                          {
-                              MessageBox.Show("Welcome to the forum now please login");
-                              conf = true;
-                              Close();
-                          }
-                          else
-                          {
-                              MessageBox.Show("Error please try again", "Error");
-                          }
-
-                      }
-                  }
-
-              }
-          }*/
+      
     }
 }
 

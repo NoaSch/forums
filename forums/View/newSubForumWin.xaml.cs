@@ -41,7 +41,6 @@ namespace forums.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //string newSubName = "";
             if (newName.Text == "")
                 MessageBox.Show("please choose name", "Error");
             else if (!busLogic.ForumsSys.getForumBySubject(ForumName).isFreeSubforumSubject(newName.Text))
@@ -59,11 +58,7 @@ namespace forums.View
                 if (busLogic.ForumsSys.getForumBySubject(ForumName).addSubForum(nextID, newSubName, newModList))
 
                 {
-
-                    /*foreach (var item in members.SelectedItems)
-                    {
-                        busLogic.ForumsSys.Forums[ForumName].SubForums[newSubName].addModerator(item.ToString());
-                    }*/
+                  
                     conf = true;
 
                     MessageBox.Show("creation complete");

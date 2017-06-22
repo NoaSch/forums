@@ -45,14 +45,10 @@ namespace forums
             string selectedForum = GetSelectedValue();
             if (selectedForum != "")
             {
-                //here the problem
                 ForumWin fw = new ForumWin(selectedForum, model);
                 fw.ShowDialog();
             }
-            /*if(model.testFunc())
-   System.Windows.MessageBox.Show("true");
-else
-   System.Windows.MessageBox.Show("false");*/
+
         }
     }
 }

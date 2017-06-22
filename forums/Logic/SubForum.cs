@@ -32,16 +32,9 @@ private string value;*/
                 //get all moderators
                 initModerators();
 
-
-                //get allDiscussions
-                initDiscusstions();
             }
         }
 
-        private void initDiscusstions()
-        {
-            getDiscussions();
-        }
 
         private void initModerators()
         {
@@ -55,18 +48,7 @@ private string value;*/
             this.newSubName = newSubName;
         }
 
-        //get all discussion from the db
-        private void getDiscussions()
-        {
-            List<string> Discussions = db.getDiscussions(subject);
-            foreach (string discSubject in Discussions)
-            {
-                //the constructor of Discussion also updates all its messages
-                discussions.Add(discSubject, new Discussion(discSubject, this.subject));
-
-                Console.WriteLine("done");
-            }
-        }
+       
 
         //get all moderators from the db
         private void getModerators()
@@ -97,18 +79,7 @@ private string value;*/
         }
 
 
-        //add moderator to the subforun
-        public bool addModerator(string name)
-        {
-            if (db.addModerator(subId, name))
-            {
-                Moderator m = new Moderator(containingForum.Members[name]);
-                moderators.Add(name, m);
-                return true;
-            }
-            return false;
-        }
-
+        
         internal bool addModerator(Moderator mod)
         {
             if (db.addModerator(subId, mod.Name))

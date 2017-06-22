@@ -22,7 +22,6 @@ namespace forums.View
     public partial class ForumWin : Window
     {
         BusLogic busLogic;
-        //string forumSubject;
         string username;
         Forum forum;
         public ObservableCollection<string> observableSubForum;
@@ -33,8 +32,6 @@ namespace forums.View
             forum = this.busLogic.ForumsSys.getForumBySubject(forumSubject);
             observableSubForum = new ObservableCollection<string>();
             subForums.ItemsSource = observableSubForum;
-            //subForums.ItemsSource = forum.SubForums.Keys;
-            //this.forumSubject = forum.ForumSubject;
             forumName.Text = forumSubject;
             foreach (string item in forum.SubForums.Keys)
             {
@@ -74,7 +71,6 @@ namespace forums.View
             if (nsb.conf == true)
             {
                 observableSubForum.Add(nsb.newSubName);
-                //subForums.ItemsSource = forum.SubForums.Keys;
             }
         }
 
@@ -108,7 +104,16 @@ namespace forums.View
 
         private void Createfg_Click(object sender, RoutedEventArgs e)
         {
-
+            if (username == null)
+            {
+                MessageBox.Show("please login");
+            }
+            else
+            {
+                CreateFriendsGroup fg;
+                fg = new CreateFriendsGroup(forum.Subject, username, busLogic);
+                fg.ShowDialog();
+            }
         }
     }
 }

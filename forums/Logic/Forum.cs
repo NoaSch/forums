@@ -82,36 +82,7 @@ namespace forums.Logic
         }
 
 
-        /* internal bool addSubForum(string newSubName)
-         {
-             string newId = (subForums.Count+1).ToString();
 
-             if (db.addSubForum(newId,subject, newSubName))
-             {
-                 subForums.Add(newSubName, new SubForum(this, newId, newSubName,false));
-                 return true;
-             }
-             return false;
-         }
-
-         internal bool isFreeSubforumSubject(string text)
-         {
-             if (subForums.ContainsKey(text))
-                 return false;
-             return true;
-         }
-
-         internal bool addMember(string username, string password)
-         {
-             if (db.addMember(subject, username, password))
-             {
-                 members.Add(username, new Member(username, password));
-                 return true;
-             }
-             return false;
-
-         }
-         */
 
         internal bool addSubForum(string newId, string newSubName, List<string> newModeratorsID)
         {
@@ -278,31 +249,7 @@ namespace forums.Logic
                 return subForums[subforumSubject];
             return null;
         }
-
-
-        /*s
-        private void LoadMembers()
-        {
-            string path=""; 
-            using (var fs = File.OpenRead(path))
-            using (var reader = new StreamReader(fs))
-            {
-                List<string> listA = new List<string>();
-                List<string> listB = new List<string>();
-                List<string> listC = new List<string>();
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split(';');
-
-                    Member m = new Member(); 
-                    listA.Add(values[0]);
-                    listB.Add(values[1]);
-                    listC.Add(values[2]);
-
-                }
-
-     */
+      
 
     }
 

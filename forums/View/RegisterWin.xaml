@@ -7,9 +7,6 @@
         mc:Ignorable="d"
         Title="RegisterWin" Height="300" Width="388.667">
     <Grid>
-        <!-- <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/pics/connect.jpg" Stretch="UniformToFill" Opacity="0.3" AlignmentY="Top"/>
-        </Grid.Background>-->
         <Grid Margin="-2,9,1.667,-9.333">
             <Grid.RowDefinitions>
                 <RowDefinition Height="145*"/>
