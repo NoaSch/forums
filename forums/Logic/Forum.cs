@@ -258,6 +258,7 @@ namespace forums.Logic
             if (subforumSubject != "")
             {
                 SubForum sb = getSubForum(subforumSubject);
+                c.AddSubForum(sb);
             }
 
             complaints.Add(c);

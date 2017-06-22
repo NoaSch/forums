@@ -71,12 +71,14 @@ namespace forums.View
                 {
                     conf = true;
                     MessageBox.Show("Thank you");
+                    Close();
 
                 }
                 else
                 {
                     conf = false;
                     MessageBox.Show("Error Occured");
+                   
                 }
                     
             }
