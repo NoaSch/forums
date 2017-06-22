@@ -61,8 +61,10 @@ namespace forums.View
         {
             newSubForumWin nsb = new newSubForumWin(busLogic, forum.ForumSubject);
             nsb.ShowDialog();
-            if(nsb.conf== true)
+            if (nsb.conf == true)
+            {               
                 subForums.ItemsSource = forum.SubForums.Keys;
+            }
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)

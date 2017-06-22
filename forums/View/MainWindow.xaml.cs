@@ -45,6 +45,7 @@ namespace forums
             string selectedForum = GetSelectedValue();
             if (selectedForum != "")
             {
+                //here the problem
                 ForumWin fw = new ForumWin(selectedForum, model);
                 fw.ShowDialog();
             }
