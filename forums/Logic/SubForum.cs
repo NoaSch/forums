@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace forums.Logic
 {
-    public class SubForum:BusLogic
+    public class SubForum : BusLogic
     {
         private string subId;
         private string subject;
@@ -18,8 +18,8 @@ namespace forums.Logic
         /*private string key;
 private string value;*/
 
-            //ini ttrue for initializing the system
-        public SubForum(Forum parentForum,string subId, string subSubject, bool init): base(false)
+        //ini ttrue for initializing the system
+        public SubForum(Forum parentForum, string subId, string subSubject, bool init) : base(false)
         {
             this.subId = subId;
             containingForum = parentForum;
@@ -49,7 +49,7 @@ private string value;*/
         }
 
 
-        public SubForum(string id,string newSubName) : base(false)
+        public SubForum(string id, string newSubName) : base(false)
         {
             this.subId = id;
             this.newSubName = newSubName;
@@ -59,13 +59,10 @@ private string value;*/
         private void getDiscussions()
         {
             List<string> Discussions = db.getDiscussions(subject);
-            foreach (string subject in Discussions)
+            foreach (string discSubject in Discussions)
             {
-                discussions.Add(subject, new Discussion(subject));
-
-                /////
-                ///neet to add all messages
-                /////
+                //the constructor of Discussion also updates all its messages
+                discussions.Add(discSubject, new Discussion(discSubject, this.subject));
 
                 Console.WriteLine("done");
             }
@@ -91,7 +88,7 @@ private string value;*/
         public string SubId
         {
             get { return subId; }
-         
+
         }
 
         public Dictionary<string, Moderator> Moderators
@@ -115,7 +112,7 @@ private string value;*/
         internal bool addModerator(Moderator mod)
         {
             if (db.addModerator(subId, mod.Name))
-            {              
+            {
                 moderators.Add(mod.Name, mod);
                 return true;
             }

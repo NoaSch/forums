@@ -79,6 +79,9 @@
     <Compile Include="View\SubForum.xaml.cs">
       <DependentUpon>SubForum.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddMessage.xaml.cs">
+      <DependentUpon>AddMessage.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\complaintWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SubForum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

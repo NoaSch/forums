@@ -69,7 +69,7 @@ namespace forums.Data
             return ans;
         }
 
-        internal bool addSubForum(string id,string forumSubject, string newSubName)
+        internal bool addSubForum(string id, string forumSubject, string newSubName)
         {
 
             conn = new OleDbConnection();
@@ -109,144 +109,144 @@ namespace forums.Data
 
         internal bool addMember(string forumName, string username, string password)
         {
-           
-             conn = new OleDbConnection();
-             //conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Database.mdb";
-             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source="+ dbPath +";";
-             cmd = new OleDbCommand();
-             cmd.CommandText = "INSERT into ForumsUsers ([forumSubject], [username], [password], [status],[isManager]) values(@forum, @username,@pass,@status,@isManager)";
-             cmd.Connection = conn;
 
-             conn.Open();
-             if (conn.State == ConnectionState.Open)
-             {
-                    cmd.Parameters.Add("@forum", OleDbType.VarChar).Value = forumName;
-                    cmd.Parameters.Add("@username", OleDbType.VarChar).Value = username;
-                 cmd.Parameters.Add("@Pass", OleDbType.VarChar).Value = password;
-                 cmd.Parameters.Add("@status", OleDbType.VarChar).Value = "active";
-                 cmd.Parameters.Add("@isManager", OleDbType.Boolean).Value = false;
-                 try
-                 {
-                     cmd.ExecuteNonQuery();
-                     conn.Close();
-                        return true;
-   
-                 }
-                 catch (OleDbException ex)
-                 {
-                     conn.Close();
-                        Console.WriteLine(ex.ToString());
-                        return false;
+            conn = new OleDbConnection();
+            //conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Database.mdb";
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            cmd = new OleDbCommand();
+            cmd.CommandText = "INSERT into ForumsUsers ([forumSubject], [username], [password], [status],[isManager]) values(@forum, @username,@pass,@status,@isManager)";
+            cmd.Connection = conn;
 
-                 }
-             }
-             else
-             {
+            conn.Open();
+            if (conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add("@forum", OleDbType.VarChar).Value = forumName;
+                cmd.Parameters.Add("@username", OleDbType.VarChar).Value = username;
+                cmd.Parameters.Add("@Pass", OleDbType.VarChar).Value = password;
+                cmd.Parameters.Add("@status", OleDbType.VarChar).Value = "active";
+                cmd.Parameters.Add("@isManager", OleDbType.Boolean).Value = false;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+
+                }
+                catch (OleDbException ex)
+                {
+                    conn.Close();
+                    Console.WriteLine(ex.ToString());
+                    return false;
+
+                }
+            }
+            else
+            {
                 conn.Close();
                 return false;
-             }
-         }
-         
+            }
+        }
 
-         internal List<string> getMenagers(string forumId)
-         {
-             List<string> ans = new List<string>();
-             conn = new OleDbConnection();
-             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
-             conn.Open();
-             OleDbDataReader reader = null;
-             cmd = new OleDbCommand("SELECT username from ForumsUsers  WHERE isManager = True AND forumSubject = '" + forumId.Trim() + "'", conn);
-             //cmd.CommandText = "SELECT * from " + chosenKind + " WHERE Payed = True AND Loc = '" + chosenArea.Trim() + "'" + " AND minAge = " + minAge + " AND maxAge = " + maxAge + " AND gender = '" + gender.Trim() + "'" + " AND smoke = " + smoke + " AND kosher = " + kosher + " AND quiet = " + quiet + " AND animals = " + animals + " AND play = " + play;
-             reader = cmd.ExecuteReader();
-             if (reader.HasRows)
-             {
-                 foreach (DbDataRecord s in reader)
-                 {
-                     string menagerName = s.GetString(0);
-                     ans.Add(menagerName);
 
-                 }
-                 conn.Close();
-                 return ans;
-             }
-             conn.Close();
-             return ans;
-         }
-
-         internal List<string> getModerators(string subForumID)
-         {
+        internal List<string> getMenagers(string forumId)
+        {
             List<string> ans = new List<string>();
-             conn = new OleDbConnection();
-             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
-             conn.Open();
-             OleDbDataReader reader = null;
-             cmd = new OleDbCommand("SELECT username from subForumsModerators WHERE  subForumId ='" + subForumID.Trim() + "'", conn);
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT username from ForumsUsers  WHERE isManager = True AND forumSubject = '" + forumId.Trim() + "'", conn);
+            //cmd.CommandText = "SELECT * from " + chosenKind + " WHERE Payed = True AND Loc = '" + chosenArea.Trim() + "'" + " AND minAge = " + minAge + " AND maxAge = " + maxAge + " AND gender = '" + gender.Trim() + "'" + " AND smoke = " + smoke + " AND kosher = " + kosher + " AND quiet = " + quiet + " AND animals = " + animals + " AND play = " + play;
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    string menagerName = s.GetString(0);
+                    ans.Add(menagerName);
 
-             reader = cmd.ExecuteReader();
-             if (reader.HasRows)
-             {
-                 foreach (DbDataRecord s in reader)
-                 {
-                     string modName = s.GetString(0);
-                     ans.Add(modName);
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
 
-                 }
-                 conn.Close();
-                 return ans;
-             }
-             conn.Close();
-             return ans;
-         }
+        internal List<string> getModerators(string subForumID)
+        {
+            List<string> ans = new List<string>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT username from subForumsModerators WHERE  subForumId ='" + subForumID.Trim() + "'", conn);
 
-         public List<string> getForums()
-         {
-             List<string> ans = new List<string>();
-             conn = new OleDbConnection();
-             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
-             conn.Open();
-             OleDbDataReader reader = null;
-             cmd = new OleDbCommand("SELECT * from Forums", conn);
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    string modName = s.GetString(0);
+                    ans.Add(modName);
 
-             reader = cmd.ExecuteReader();
-             if (reader.HasRows)
-             {
-                  foreach (DbDataRecord s in reader)
-                     {
-                      string key = s.GetString(0);
-                     ans.Add(key);
-                 }
-                 conn.Close();
-                 return ans;
-             }
-             conn.Close();
-             return ans;
-         }
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
 
-         public Dictionary<string, Tuple<string, string>> getMembersOfForum(string forumSubject)
-         {
-             Dictionary<string, Tuple<string, string>> ans = new Dictionary<string, Tuple<string,string>>();
-             conn = new OleDbConnection();
-             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
-             conn.Open();
-             OleDbDataReader reader = null;
-             cmd = new OleDbCommand("SELECT * from ForumsUsers WHERE  forumSubject ='" + forumSubject.Trim() + "'", conn);
+        public List<string> getForums()
+        {
+            List<string> ans = new List<string>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT * from Forums", conn);
 
-             reader = cmd.ExecuteReader();
-             if (reader.HasRows)
-             {
-                 foreach (DbDataRecord s in reader)
-                 {                   
-                     string username = s.GetString(1);
-                     string password = s.GetString(2);
-                     string status = s.GetString(3);
-                     ans.Add(username,new Tuple<string, string>(password, status));
-                 }
-                 conn.Close();
-                 return ans;
-             }
-             conn.Close();
-             return ans;
-         }
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    string key = s.GetString(0);
+                    ans.Add(key);
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
+
+        public Dictionary<string, Tuple<string, string>> getMembersOfForum(string forumSubject)
+        {
+            Dictionary<string, Tuple<string, string>> ans = new Dictionary<string, Tuple<string, string>>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT * from ForumsUsers WHERE  forumSubject ='" + forumSubject.Trim() + "'", conn);
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    string username = s.GetString(1);
+                    string password = s.GetString(2);
+                    string status = s.GetString(3);
+                    ans.Add(username, new Tuple<string, string>(password, status));
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
 
         internal bool addModerator(string id, string name)
         {
@@ -284,30 +284,30 @@ namespace forums.Data
             }
         }
 
-        public Dictionary<string,string> getSubForumsOfForum(string forumSubject)
-         {
-             Dictionary<string,string> ans = new Dictionary<string,string>();
-             conn = new OleDbConnection();
-             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
-             conn.Open();
-             OleDbDataReader reader = null;
-             cmd = new OleDbCommand("SELECT * from subForums WHERE  forumSubject ='" + forumSubject.Trim() + "'", conn);
+        public Dictionary<string, string> getSubForumsOfForum(string forumSubject)
+        {
+            Dictionary<string, string> ans = new Dictionary<string, string>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT * from subForums WHERE  forumSubject ='" + forumSubject.Trim() + "'", conn);
 
-             reader = cmd.ExecuteReader();
-             if (reader.HasRows)
-             {
-                 foreach (DbDataRecord s in reader)
-                 {
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
                     string subId = s.GetString(0);
-                    string subSubject = s.GetString(1);               
-                     ans.Add(subId, subSubject);
-                 }
-                 conn.Close();
-                 return ans;
-             }
-             conn.Close();
-             return ans;
-         }
+                    string subSubject = s.GetString(1);
+                    ans.Add(subId, subSubject);
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
         //
         internal bool addComplaint(Complaint c)
         {
@@ -325,7 +325,7 @@ namespace forums.Data
                 cmd.Parameters.Add("@content", OleDbType.VarChar).Value = c.Content;
                 cmd.Parameters.Add("@sender", OleDbType.VarChar).Value = c.Complaintant.Name;
                 cmd.Parameters.Add("@recipieant", OleDbType.VarChar).Value = c.Recipiant.Name;
-                if(c.SubForum != null)
+                if (c.SubForum != null)
                     cmd.Parameters.Add("@subId", OleDbType.VarChar).Value = c.SubForum.SubId;
                 else
                     cmd.Parameters.Add("@subId", OleDbType.VarChar).Value = "";
@@ -353,6 +353,104 @@ namespace forums.Data
             }
         }
 
+        internal List<Message> getMessages(string discSubject)
+        {
+            List<Message> ans = new List<Message>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT * from Messages WHERE discussionSubject ='" + discSubject.Trim() + "'", conn);
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    //string discSubject = s.GetString(1);
+                    int a = s.GetInt32(0);
+                    string b = s.GetString(1);
+                    string c = s.GetString(2);
+                    string d = s.GetString(3);
+                    DateTime e = s.GetDateTime(4);
+                    string f = s.GetString(5);
+                    string g = s.GetString(6);
+                    Message m = new Message(a, b, c, d, e, f, g);
+                    ans.Add(m);
+
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
+
+        internal bool addMessage(Message m)
+        {
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            cmd = new OleDbCommand();
+            //discussionSubject, title, content, dateCreated, publisher
+            cmd.CommandText = "INSERT into Messages ([discussionSubject],[title],[content],[dateCreated],[publisher]) values (@discnSub, @title, @content, @dateCreated, @publisher)";
+            cmd.Connection = conn;
+            string query2 = "Select @@Identity";
+            int ID;
+            conn.Open();
+            if (conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add("@discnSub", OleDbType.VarChar).Value = m.discussionSubject;
+                cmd.Parameters.Add("@title", OleDbType.VarChar).Value = m.title;
+                cmd.Parameters.Add("@content", OleDbType.VarChar).Value = m.content;
+                cmd.Parameters.Add("@dateCreated", OleDbType.Date).Value = m.dateCreated;
+                cmd.Parameters.Add("@publisher", OleDbType.VarChar).Value = m.publisher;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = query2;
+                    ID = (int)cmd.ExecuteScalar();
+                    conn.Close();
+                    return true;
+                }
+                catch (OleDbException ex)
+                {
+                    conn.Close();
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+        public Dictionary<string, Discussion> getDiscussionsOfSubForum(string subForumSubject)
+        {
+            Dictionary<string, Discussion> ans = new Dictionary<string, Discussion>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT * from discussions WHERE subForumSubject ='" + subForumSubject.Trim() + "'", conn);
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    string discSubject = s.GetString(1);
+                    Discussion disc = new Discussion(s.GetString(0), discSubject);
+                    ans.Add(discSubject, disc);
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
 
         //add new user to the db
         /*public bool AddUserToDB(string mail, string pass, int age, string gender, bool? smoke, string name, bool? kosher, bool? quiet, bool? animals, bool? play, string about)
@@ -1095,7 +1193,7 @@ namespace forums.Data
         }*/
 
     }
-    }
+}
 
 
 
