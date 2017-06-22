@@ -19,7 +19,6 @@ namespace forums.Logic
             db = new myData();
             if (init)
                 system = new System();
-
         }
 
 

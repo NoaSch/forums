@@ -69,6 +69,65 @@ namespace forums.Data
             return ans;
         }
 
+        //elinor func
+        /*
+        internal List<FriendGroup> getFriendsGroupsOfForum(string subject)
+        {
+            List<FriendGroup> ans = new List<FriendGroup>();
+            HashSet<Tuple<string, string>> friendsGroups = new HashSet<Tuple<string, string>>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT * from FriendsGroupMembers WHERE Forum ='" + subject.Trim() + "'", conn);
+            List<string> members = new List<string>();
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    string forumName = s.GetString(0);
+                    string groupName = s.GetString(1);
+                    friendsGroups.Add
+                    //members.Add(s.GetString(2));
+                    //ans.Add(new FriendGroup(forumName, groupName));
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
+
+        internal List<FriendGroup> getFriendsGroupsMOfForum(string subject)
+        {
+            List<FriendGroup> ans = new List<FriendGroup>();
+            HashSet<Tuple<string, string>> friendsGroups = new HashSet<Tuple<string, string>>();
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("SELECT * from FriendsGroupMembers WHERE Forum ='" + subject.Trim() + "'", conn);
+            List<string> members = new List<string>();
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                foreach (DbDataRecord s in reader)
+                {
+                    string forumName = s.GetString(0);
+                    string groupName = s.GetString(1);
+                    friendsGroups.Add
+                    //members.Add(s.GetString(2));
+                    //ans.Add(new FriendGroup(forumName, groupName));
+                }
+                conn.Close();
+                return ans;
+            }
+            conn.Close();
+            return ans;
+        }
+        */
+
         internal bool addSubForum(string id, string forumSubject, string newSubName)
         {
 
@@ -146,7 +205,6 @@ namespace forums.Data
                 return false;
             }
         }
-
 
         internal List<string> getMenagers(string forumId)
         {
@@ -452,31 +510,23 @@ namespace forums.Data
             return ans;
         }
 
-        /* elinor func
-        internal bool addFriendsGroup(FriendGroup fg)
+        internal bool addFriendsGroup(FriendGroup fg, string forumName)
         {
             conn = new OleDbConnection();
-        conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
             cmd = new OleDbCommand();
-        //discussionSubject, title, content, dateCreated, publisher
-        cmd.CommandText = "INSERT into FriendsGroup ([discussionSubject],[title],[content],[dateCreated],[publisher]) values (@discnSub, @title, @content, @dateCreated, @publisher)";
+            //discussionSubject, title, content, dateCreated, publisher
+            cmd.CommandText = "INSERT into FriendsGroup ([Forum],[FriendsGroupName]) values (@forum, @name)";
             cmd.Connection = conn;
-            string query2 = "Select @@Identity";
-        int ID;
-        conn.Open();
+            conn.Open();
             if (conn.State == ConnectionState.Open)
             {
-                cmd.Parameters.Add("@discnSub", OleDbType.VarChar).Value = fg.discussionSubject;
-                cmd.Parameters.Add("@title", OleDbType.VarChar).Value = fg.title;
-                cmd.Parameters.Add("@content", OleDbType.VarChar).Value = fg.content;
-                cmd.Parameters.Add("@dateCreated", OleDbType.Date).Value = fg.dateCreated;
-                cmd.Parameters.Add("@publisher", OleDbType.VarChar).Value = fg.publisher;
+                cmd.Parameters.Add("@forum", OleDbType.VarChar).Value = forumName;
+                cmd.Parameters.Add("@name", OleDbType.VarChar).Value = fg.name;
 
                 try
                 {
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = query2;
-                    ID = (int)cmd.ExecuteScalar();
                     conn.Close();
                     return true;
                 }
@@ -493,8 +543,42 @@ namespace forums.Data
                 return false;
             }
         }
-        */
 
+        internal bool addFriendsGroupMembers(FriendGroup fg, string forumName)
+        {
+            conn = new OleDbConnection();
+            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath + ";";
+            cmd = new OleDbCommand();
+            //discussionSubject, title, content, dateCreated, publisher
+            cmd.CommandText = "INSERT into FriendsGroupMembers ([Forum],[FriendsGroup],[Member]) values (@forum, @name, @member)";
+            cmd.Connection = conn;
+            DateTime date = DateTime.Now;
+            conn.Open();
+            if (conn.State == ConnectionState.Open)
+            {
+                cmd.Parameters.Add("@forum", OleDbType.VarChar).Value = forumName;
+                cmd.Parameters.Add("@name", OleDbType.VarChar).Value = fg.name;
+                cmd.Parameters.Add("@member", OleDbType.Date).Value = fg.members[0];
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+                }
+                catch (OleDbException ex)
+                {
+                    conn.Close();
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+        }
 
         //add new user to the db
         /*public bool AddUserToDB(string mail, string pass, int age, string gender, bool? smoke, string name, bool? kosher, bool? quiet, bool? animals, bool? play, string about)

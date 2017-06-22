@@ -14,8 +14,7 @@ namespace forums.Logic
         Dictionary<string, Member> members;
         private string subject;
         List<Complaint> complaints;
-
-
+        HashSet<FriendGroup> allFriendsGroups;
 
 
         public Forum(string subject) : base(false)
@@ -26,7 +25,7 @@ namespace forums.Logic
             members = new Dictionary<string, Member>();
             managers = new Dictionary<string, Manager>();
             complaints = new List<Complaint>();
-
+            allFriendsGroups = new HashSet<FriendGroup>();
 
             //add members
             getExistingMembers();
@@ -51,7 +50,6 @@ namespace forums.Logic
 
         private void getExistingSubForums()
         {
-
             Dictionary<string, string> subFList = db.getSubForumsOfForum(subject);
             foreach (KeyValuePair<string, string> pair in subFList)
             {
@@ -67,6 +65,18 @@ namespace forums.Logic
         {
             return (subForums.Count + 1).ToString();
         }
+
+        //elinor func
+        /*
+        private void getForumGroups()
+        {
+            List<FriendGroup> groups = db.getFriendsGroupsOfForum(subject);
+            foreach (FriendGroup fg in groups)
+            {
+                //allFriendsGroups.Add(name, new Manager(members[name]));
+            }
+        }
+        */
 
         /* internal bool addSubForum(string newSubName)
          {
@@ -119,6 +129,34 @@ namespace forums.Logic
             }
             return false;
         }
+
+        //elinor func
+        /*
+        internal bool addFriendsGroup(string forum, string name, string user)
+        {
+            //check for uniqe group name
+            foreach (FriendGroup item in allFriendsGroups)
+            {
+                if (item.name == name)
+                {
+                    return false;
+                }
+            }
+            //creating friend group object and adding it to db & to dictionary
+            List<string> member = new List<string>();
+            member.Add(user);
+            FriendGroup fg = new FriendGroup(forum, name, member);
+            if (db.addFriendsGroup(fg)) //adding to FriendGroup table
+            {
+                if (db.addFriendsGroupMembers(fg)) //adding to FriendsGroupMembers table
+                {
+                    allFriendsGroups.Add(fg);
+                    return true;
+                }
+            }
+            return false;
+        }
+        */
 
         private void associateSubForumToForum(SubForum newSB)
         {

@@ -21,10 +21,14 @@ namespace forums.View
     public partial class CreateFriendsGroup : Window
     {
         string username;
-        public CreateFriendsGroup(string user)
+        string forum;
+        BusLogic buslogic;
+        public CreateFriendsGroup(string f, string user, BusLogic bus)
         {
             InitializeComponent();
             username = user;
+            forum = f;
+            buslogic = bus;
         }
 
         private void AddBtn_click(object sender, RoutedEventArgs e)
@@ -33,10 +37,16 @@ namespace forums.View
             {
                 List<string> members = new List<string>();
                 members.Add(username);
+                //elinor func
                 //create new friend group with the current user as a member in it
-                FriendGroup fg = new FriendGroup(name.Text, members);
-                MessageBox.Show("Friend group created succesfully", "Done");
-                this.Close();
+                //FriendGroup fg = new FriendGroup(this.forum, name.Text, members);
+                //if (buslogic.ForumsSys.Forums[forum].addFriendsGroup(forum, name.Text, username))
+                //{
+                //    MessageBox.Show("Friend group created succesfully", "Done");
+                //    this.Close();
+                //}
+                //else
+                //    MessageBox.Show("Friend group name already exist", "Error");
             }
             else
             {

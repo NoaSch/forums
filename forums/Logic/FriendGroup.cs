@@ -8,11 +8,13 @@ namespace forums.Logic
 {
     class FriendGroup : BusLogic
     {
-        string name;
-        List<string> members;
+        //public string forum;
+        public string name;
+        public List<Member> members;
 
-        public FriendGroup(string name, List<string> members) : base(false)
+        public FriendGroup(string name, List<Member> members) : base(false)
         {
+            //this.forum = forum;
             this.name = name;
             this.members = members;
         }

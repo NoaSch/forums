@@ -100,7 +100,7 @@ namespace forums.View
             else
             {
                 CreateFriendsGroup fg;
-                fg = new CreateFriendsGroup(username);
+                fg = new CreateFriendsGroup(forum.Subject, username, busLogic);
                 fg.ShowDialog();
             }
         }
